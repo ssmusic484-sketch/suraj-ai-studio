@@ -1,0 +1,664 @@
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Suraj AI Studio</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+margin:0;background:#070a11;color:#fff;
+font-family:Arial,Helvetica,sans-serif
+}
+header{
+position:sticky;top:0;z-index:20;
+background:#0d1422;border-bottom:1px solid #26344b;
+padding:15px
+}
+.logo{font-size:23px;font-weight:800}
+.logo span{color:#6da8ff}
+.container{max-width:950px;margin:auto;padding:16px}
+.hero{text-align:center;padding:28px 8px}
+.hero h1{font-size:34px;margin:8px 0}
+.hero p{color:#aab7ca;line-height:1.6}
+.card{
+background:#101722;border:1px solid #26354c;
+border-radius:18px;padding:18px;margin-bottom:16px
+}
+h2{margin-top:0}
+label{display:block;font-weight:700;margin:12px 0 7px}
+textarea,input,select{
+width:100%;padding:13px;border-radius:11px;
+border:1px solid #35455e;background:#080d15;
+color:white;font-size:16px;outline:none
+}
+textarea{min-height:190px;resize:vertical}
+.grid{
+display:grid;grid-template-columns:repeat(2,1fr);gap:12px
+}
+button{
+border:0;border-radius:11px;padding:13px 17px;
+font-size:16px;font-weight:700;cursor:pointer
+}
+.primary{
+width:100%;margin-top:15px;color:white;
+background:linear-gradient(135deg,#347cff,#814fff)
+}
+.secondary{background:#202c40;color:white}
+.delete{background:#522631;color:white}
+.tag{
+display:inline-block;background:#1c2a40;color:#bcd5ff;
+border-radius:20px;padding:6px 9px;margin:4px;font-size:12px
+}
+.scene{
+background:#0a1019;border:1px solid #29384e;
+border-radius:13px;padding:14px;margin-top:10px
+}
+.progress{
+height:12px;background:#202a39;border-radius:20px;
+overflow:hidden;margin:12px 0
+}
+.bar{
+height:100%;width:0%;
+background:linear-gradient(90deg,#357cff,#925cff);
+transition:width .5s
+}
+.status{display:none;margin-top:15px}
+.muted{color:#8d9aae;font-size:14px;line-height:1.5}
+.project{
+display:flex;justify-content:space-between;gap:10px;
+align-items:center;background:#0a1019;
+border:1px solid #29384e;border-radius:12px;
+padding:12px;margin-top:9px
+}
+.preview{
+display:none;text-align:center
+}
+.video{
+aspect-ratio:16/9;background:#05070b;
+border:1px solid #33445e;border-radius:15px;
+display:flex;align-items:center;justify-content:center;
+color:#8492a5
+}
+.notice{
+background:#151f2e;border-left:4px solid #5e95ff;
+padding:12px;border-radius:8px;
+color:#b9c7da;font-size:14px;line-height:1.5
+}
+footer{text-align:center;padding:30px;color:#68768a;font-size:13px}
+@media(max-width:650px){
+.grid{grid-template-columns:1fr}
+.hero h1{font-size:27px}
+.container{padding:12px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="container" style="padding:0">
+<div class="logo">☀️ Suraj <span>AI Studio</span></div>
+</div>
+</header>
+
+<main class="container">
+
+<section class="hero">
+<h1>Story → AI Video 🎬</h1>
+<p>
+अपनी कहानी लिखें और उसे animated video project में बदलने के लिए
+scene, character, dialogue, voice, movement और camera plan तैयार करें।
+</p>
+</section>
+
+<section class="card">
+
+<h2>📖 1. अपनी कहानी</h2>
+
+<label>Story / Script</label>
+<textarea id="story"
+placeholder="अपनी पूरी कहानी यहाँ लिखें...
+
+उदाहरण:
+राज एक पुराने जंगल में जाता है। उसे वहाँ एक रहस्यमयी घर दिखाई देता है।
+राज दरवाजा खोलता है और अंदर जाता है। वहाँ एक लड़की उसकी मदद के लिए पुकारती है।"></textarea>
+
+<div class="grid">
+
+<div>
+<label>🎨 Visual Style</label>
+<select id="style">
+<option>Cinematic Animation</option>
+<option>3D Animation</option>
+<option>Realistic</option>
+<option>Anime</option>
+<option>Cartoon</option>
+</select>
+</div>
+
+<div>
+<label>⏱️ Video Duration</label>
+<select id="duration">
+<option>Up to 5 minutes</option>
+</select>
+</div>
+
+</div>
+
+<div class="grid">
+
+<div>
+<label>📐 Format</label>
+<select id="ratio">
+<option>16:9 Landscape</option>
+<option>9:16 Portrait</option>
+<option>1:1 Square</option>
+</select>
+</div>
+
+<div>
+<label>🎥 Video Quality</label>
+<select id="quality">
+<option>HD</option>
+<option>Full HD</option>
+</select>
+</div>
+
+</div>
+
+</section>
+
+
+<section class="card">
+
+<h2>👥 2. Characters</h2>
+
+<div class="grid">
+
+<div>
+<label>Character 1</label>
+<input id="c1" placeholder="नाम">
+</div>
+
+<div>
+<label>Appearance</label>
+<input id="a1" placeholder="चेहरा, बाल, कपड़े आदि">
+</div>
+
+<div>
+<label>Character 2</label>
+<input id="c2" placeholder="नाम">
+</div>
+
+<div>
+<label>Appearance</label>
+<input id="a2" placeholder="चेहरा, बाल, कपड़े आदि">
+</div>
+
+<div>
+<label>Character 3</label>
+<input id="c3" placeholder="नाम">
+</div>
+
+<div>
+<label>Appearance</label>
+<input id="a3" placeholder="चेहरा, बाल, कपड़े आदि">
+</div>
+
+<div>
+<label>Character 4</label>
+<input id="c4" placeholder="नाम">
+</div>
+
+<div>
+<label>Appearance</label>
+<input id="a4" placeholder="चेहरा, बाल, कपड़े आदि">
+</div>
+
+</div>
+
+<p class="muted">
+Character consistency: हर scene में character का चेहरा,
+कपड़े, बाल, आवाज और सामान्य appearance एक जैसा रखने का plan।
+</p>
+
+</section>
+
+
+<section class="card">
+
+<h2>🗣️ 3. Voice & Dialogue</h2>
+
+<div class="grid">
+
+<div>
+<label>Narrator</label>
+<select id="narrator">
+<option>Hindi Male</option>
+<option>Hindi Female</option>
+<option>English Male</option>
+<option>English Female</option>
+</select>
+</div>
+
+<div>
+<label>Character Voice Style</label>
+<select id="voice">
+<option>Natural</option>
+<option>Cinematic</option>
+<option>Deep</option>
+<option>Soft</option>
+</select>
+</div>
+
+<div>
+<label>🎵 Background Music</label>
+<select id="music">
+<option>Cinematic</option>
+<option>Adventure</option>
+<option>Mystery</option>
+<option>Emotional</option>
+<option>None</option>
+</select>
+</div>
+
+<div>
+<label>🔊 Sound Effects</label>
+<select id="sfx">
+<option>Automatic</option>
+<option>On</option>
+<option>Off</option>
+</select>
+</div>
+
+</div>
+
+<div class="notice">
+AI workflow में dialogue को सही character से जोड़ने,
+voice अलग रखने और lip-sync के लिए scene plan बनाया जाएगा।
+</div>
+
+</section>
+
+
+<section class="card">
+
+<h2>🎬 4. Animation Controls</h2>
+
+<div class="grid">
+
+<div>
+<label>🚶 Character Movement</label>
+<select id="movement">
+<option>Story Based</option>
+<option>Natural</option>
+<option>Cinematic</option>
+</select>
+</div>
+
+<div>
+<label>😊 Facial Expression</label>
+<select id="expression">
+<option>Story Based</option>
+<option>Natural</option>
+<option>Strong</option>
+</select>
+</div>
+
+<div>
+<label>👄 Lip Sync</label>
+<select id="lipsync">
+<option>Automatic</option>
+<option>Accurate Dialogue Sync</option>
+</select>
+</div>
+
+<div>
+<label>👁️ Eye / Blink</label>
+<select id="blink">
+<option>Natural</option>
+<option>Automatic</option>
+</select>
+</div>
+
+</div>
+
+</section>
+
+
+<section class="card">
+
+<h2>🌄 5. Moving Background</h2>
+
+<select id="background">
+<option>Story Based Automatic</option>
+<option>Nature / Forest</option>
+<option>City</option>
+<option>Village</option>
+<option>Room / House</option>
+<option>Adventure Environment</option>
+</select>
+
+<p class="muted">
+Background plan में story के अनुसार environment movement,
+weather, trees, water, vehicles, people और lighting जैसी चीजें
+जहाँ उचित हों वहाँ शामिल की जाएँगी।
+</p>
+
+</section>
+
+
+<section class="card">
+
+<h2>🎥 6. Camera</h2>
+
+<div class="grid">
+
+<div>
+<label>Camera Style</label>
+<select id="camera">
+<option>Cinematic Automatic</option>
+<option>Story Based</option>
+<option>Dynamic</option>
+</select>
+</div>
+
+<div>
+<label>Transitions</label>
+<select id="transition">
+<option>Automatic</option>
+<option>Fade</option>
+<option>Cut</option>
+<option>Cinematic</option>
+</select>
+</div>
+
+</div>
+
+</section>
+
+
+<section class="card">
+
+<h2>🚀 7. Generate Project</h2>
+
+<button class="primary" onclick="generate()">
+🚀 Generate Story Project
+</button>
+
+<div class="status" id="status">
+
+<div class="progress">
+<div class="bar" id="bar"></div>
+</div>
+
+<p id="statusText" class="muted">Preparing...</p>
+
+</div>
+
+</section>
+
+
+<section class="card" id="sceneCard" style="display:none">
+
+<h2>🎞️ 8. Generated Scene Plan</h2>
+
+<div id="scenes"></div>
+
+</section>
+
+
+<section class="card preview" id="preview">
+
+<h2>🎥 9. Video Preview</h2>
+
+<div class="video">
+<div>
+<div style="font-size:42px">▶️</div>
+Preview Area
+</div>
+</div>
+
+<p class="muted">
+यह preview अभी project workflow का हिस्सा है।
+वास्तविक AI video rendering engine जोड़ने पर यहाँ
+generated video चलेगा।
+</p>
+
+<button class="secondary" onclick="downloadInfo()">
+📥 Download Video
+</button>
+
+</section>
+
+
+<section class="card">
+
+<h2>📁 10. My Projects</h2>
+
+<div id="projects">
+<p class="muted">अभी कोई project नहीं है।</p>
+</div>
+
+</section>
+
+
+<section class="card">
+
+<h2>⚙️ 11. Project Information</h2>
+
+<div class="notice">
+<b>Suraj AI Studio</b><br><br>
+Story → Scenes → Characters → Animation Plan →
+Dialogue → Voice → Lip-sync → Background → Camera →
+Video Rendering
+<br><br>
+यह interface वास्तविक AI generation backend को जोड़ने के
+लिए तैयार किया गया prototype है।
+</div>
+
+</section>
+
+</main>
+
+<footer>
+Suraj AI Studio © 2026<br>
+Original Project
+</footer>
+
+
+<script>
+
+let projects=
+JSON.parse(localStorage.getItem("suraj_ai_projects")||"[]");
+
+function save(){
+localStorage.setItem(
+"suraj_ai_projects",
+JSON.stringify(projects)
+);
+}
+
+function value(id){
+return document.getElementById(id).value.trim();
+}
+
+function generate(){
+
+let story=value("story");
+
+if(!story){
+alert("पहले अपनी कहानी लिखिए।");
+return;
+}
+
+let status=document.getElementById("status");
+let bar=document.getElementById("bar");
+let text=document.getElementById("statusText");
+
+status.style.display="block";
+
+let steps=[
+[10,"Story को analyze किया जा रहा है..."],
+[22,"Characters identify किए जा रहे हैं..."],
+[35,"Story को scenes में divide किया जा रहा है..."],
+[48,"Character actions और expressions तैयार हो रहे हैं..."],
+[61,"Dialogue और speaker mapping तैयार हो रही है..."],
+[72,"Voice और lip-sync plan तैयार हो रहा है..."],
+[83,"Moving background और camera plan तैयार हो रहा है..."],
+[94,"Final video project तैयार हो रहा है..."],
+[100,"Project तैयार है!"]
+];
+
+let i=0;
+
+function run(){
+
+if(i>=steps.length){
+
+makeScenes(story);
+saveProject(story);
+
+document.getElementById("preview")
+.style.display="block";
+
+return;
+}
+
+bar.style.width=steps[i][0]+"%";
+text.textContent=steps[i][1];
+
+i++;
+setTimeout(run,550);
+}
+
+run();
+}
+
+
+function makeScenes(story){
+
+let card=document.getElementById("sceneCard");
+let box=document.getElementById("scenes");
+
+card.style.display="block";
+box.innerHTML="";
+
+let parts=story
+.split(/[.!?।]+/)
+.map(x=>x.trim())
+.filter(Boolean);
+
+if(!parts.length)parts=[story];
+
+parts.slice(0,20).forEach((part,i)=>{
+
+let scene=document.createElement("div");
+scene.className="scene";
+
+scene.innerHTML=
+"<b>Scene "+(i+1)+"</b><br><br>"+
+part+
+"<br><br>"+
+"<span class='tag'>Character Movement</span>"+
+"<span class='tag'>Facial Expression</span>"+
+"<span class='tag'>Lip Sync</span>"+
+"<span class='tag'>Voice</span>"+
+"<span class='tag'>Moving Background</span>"+
+"<span class='tag'>Camera Movement</span>";
+
+box.appendChild(scene);
+
+});
+
+}
+
+
+function saveProject(story){
+
+let names=[
+value("c1"),value("c2"),
+value("c3"),value("c4")
+].filter(Boolean);
+
+let project={
+id:Date.now(),
+name:"Suraj AI Story "+(projects.length+1),
+story:story,
+characters:names,
+date:new Date().toLocaleString()
+};
+
+projects.unshift(project);
+
+if(projects.length>20)
+projects=projects.slice(0,20);
+
+save();
+render();
+}
+
+
+function render(){
+
+let box=document.getElementById("projects");
+
+if(!projects.length){
+box.innerHTML=
+"<p class='muted'>अभी कोई project नहीं है।</p>";
+return;
+}
+
+box.innerHTML="";
+
+projects.forEach(p=>{
+
+let div=document.createElement("div");
+div.className="project";
+
+let chars=p.characters.length
+?p.characters.join(", ")
+:"No characters added";
+
+div.innerHTML=
+"<div>"+
+"<b>"+p.name+"</b>"+
+"<div class='muted'>"+
+p.date+"<br>"+
+"Characters: "+chars+
+"</div>"+
+"</div>"+
+"<button class='delete' onclick='removeProject("+p.id+")'>Delete</button>";
+
+box.appendChild(div);
+
+});
+}
+
+
+function removeProject(id){
+
+projects=projects.filter(x=>x.id!==id);
+save();
+render();
+
+}
+
+
+function downloadInfo(){
+
+alert(
+"वास्तविक video download के लिए AI video rendering backend अभी connect करना बाकी है।"
+);
+
+}
+
+render();
+
+</script>
+
+</body>
+  </html>
