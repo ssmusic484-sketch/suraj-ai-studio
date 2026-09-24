@@ -1,664 +1,217 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="hi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Suraj AI Studio</title>
-
 <style>
-*{box-sizing:border-box}
-body{
-margin:0;background:#070a11;color:#fff;
-font-family:Arial,Helvetica,sans-serif
-}
-header{
-position:sticky;top:0;z-index:20;
-background:#0d1422;border-bottom:1px solid #26344b;
-padding:15px
-}
-.logo{font-size:23px;font-weight:800}
-.logo span{color:#6da8ff}
-.container{max-width:950px;margin:auto;padding:16px}
-.hero{text-align:center;padding:28px 8px}
-.hero h1{font-size:34px;margin:8px 0}
-.hero p{color:#aab7ca;line-height:1.6}
-.card{
-background:#101722;border:1px solid #26354c;
-border-radius:18px;padding:18px;margin-bottom:16px
-}
-h2{margin-top:0}
-label{display:block;font-weight:700;margin:12px 0 7px}
-textarea,input,select{
-width:100%;padding:13px;border-radius:11px;
-border:1px solid #35455e;background:#080d15;
-color:white;font-size:16px;outline:none
-}
-textarea{min-height:190px;resize:vertical}
-.grid{
-display:grid;grid-template-columns:repeat(2,1fr);gap:12px
-}
-button{
-border:0;border-radius:11px;padding:13px 17px;
-font-size:16px;font-weight:700;cursor:pointer
-}
-.primary{
-width:100%;margin-top:15px;color:white;
-background:linear-gradient(135deg,#347cff,#814fff)
-}
-.secondary{background:#202c40;color:white}
-.delete{background:#522631;color:white}
-.tag{
-display:inline-block;background:#1c2a40;color:#bcd5ff;
-border-radius:20px;padding:6px 9px;margin:4px;font-size:12px
-}
-.scene{
-background:#0a1019;border:1px solid #29384e;
-border-radius:13px;padding:14px;margin-top:10px
-}
-.progress{
-height:12px;background:#202a39;border-radius:20px;
-overflow:hidden;margin:12px 0
-}
-.bar{
-height:100%;width:0%;
-background:linear-gradient(90deg,#357cff,#925cff);
-transition:width .5s
-}
-.status{display:none;margin-top:15px}
-.muted{color:#8d9aae;font-size:14px;line-height:1.5}
-.project{
-display:flex;justify-content:space-between;gap:10px;
-align-items:center;background:#0a1019;
-border:1px solid #29384e;border-radius:12px;
-padding:12px;margin-top:9px
-}
-.preview{
-display:none;text-align:center
-}
-.video{
-aspect-ratio:16/9;background:#05070b;
-border:1px solid #33445e;border-radius:15px;
-display:flex;align-items:center;justify-content:center;
-color:#8492a5
-}
-.notice{
-background:#151f2e;border-left:4px solid #5e95ff;
-padding:12px;border-radius:8px;
-color:#b9c7da;font-size:14px;line-height:1.5
-}
-footer{text-align:center;padding:30px;color:#68768a;font-size:13px}
-@media(max-width:650px){
-.grid{grid-template-columns:1fr}
-.hero h1{font-size:27px}
-.container{padding:12px}
-}
+:root{--bg:#07111f;--card:#0d1b2e;--line:#294463;--text:#f4f7fb;--muted:#9eb1c8;--accent:#ffd34d;--accent2:#65b9ff}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#06101e,#09182b);color:var(--text);font-family:Arial,system-ui,sans-serif}
+header{position:sticky;top:0;z-index:10;background:#081426ee;backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:14px 4%}
+.logo{font-size:21px;font-weight:800}.logo span{color:var(--accent)}
+main{width:min(1150px,94%);margin:auto}.hero{text-align:center;padding:30px 8px 18px}.hero h1{font-size:clamp(28px,6vw,46px);margin:8px 0}.hero p{color:var(--muted);line-height:1.6}
+.card{background:linear-gradient(180deg,#0e1d31,#0b1728);border:1px solid var(--line);border-radius:18px;padding:18px;margin:16px 0;box-shadow:0 15px 40px #0005}
+h2{margin-top:0;font-size:21px}label{display:block;margin:12px 0 6px;font-weight:700}
+textarea,input,select{width:100%;background:#071221;color:#fff;border:1px solid #355474;border-radius:11px;padding:11px;font:inherit;outline:none}textarea{min-height:145px;resize:vertical}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+button{border:0;border-radius:11px;padding:11px 15px;font-weight:700;font-size:14px;cursor:pointer;margin:7px 5px 0 0}.primary{background:var(--accent);color:#111}.secondary{background:#1b3553;color:#fff}.danger{background:#8d3040;color:#fff}
+.muted,.small{color:var(--muted);font-size:13px}.hidden{display:none!important}
+.chars{display:grid;gap:10px}.char{border:1px solid #2b4765;border-radius:13px;padding:12px;background:#091627}
+.charhead{display:flex;justify-content:space-between;align-items:center}.pill{background:#183553;border-radius:20px;padding:4px 8px;font-size:12px}
+.scene{border:1px solid #294766;border-radius:13px;padding:12px;margin:9px 0;background:#091727}.scene b{color:var(--accent)}
+.preview{overflow:hidden;border:1px solid #314d6c;border-radius:15px;background:#02060b}canvas{display:block;width:100%;height:auto}
+.status{padding:10px;color:var(--muted)}.progress{height:8px;background:#172a42;border-radius:20px;overflow:hidden;margin-top:9px}.progress i{display:block;height:100%;width:0;background:var(--accent);transition:.15s}
+.actions{display:flex;flex-wrap:wrap;gap:3px}.empty{padding:14px;border:1px dashed #36506c;border-radius:12px;color:var(--muted)}
+footer{text-align:center;padding:28px;color:#7388a2;font-size:13px}
+@media(max-width:700px){.grid,.grid3{grid-template-columns:1fr}.card{padding:14px}}
 </style>
 </head>
-
 <body>
+<header><div class="logo">☀️ <span>Suraj</span> AI Studio</div></header>
 
-<header>
-<div class="container" style="padding:0">
-<div class="logo">☀️ Suraj <span>AI Studio</span></div>
-</div>
-</header>
-
-<main class="container">
-
+<main>
 <section class="hero">
-<h1>Story → AI Video 🎬</h1>
-<p>
-अपनी कहानी लिखें और उसे animated video project में बदलने के लिए
-scene, character, dialogue, voice, movement और camera plan तैयार करें।
-</p>
+<h1>Story → Animated Video 🎬</h1>
+<p>अपनी कहानी को scenes, characters, dialogues, camera और browser animation project में बदलें।</p>
 </section>
 
 <section class="card">
-
-<h2>📖 1. अपनी कहानी</h2>
-
-<label>Story / Script</label>
-<textarea id="story"
-placeholder="अपनी पूरी कहानी यहाँ लिखें...
-
-उदाहरण:
-राज एक पुराने जंगल में जाता है। उसे वहाँ एक रहस्यमयी घर दिखाई देता है।
-राज दरवाजा खोलता है और अंदर जाता है। वहाँ एक लड़की उसकी मदद के लिए पुकारती है।"></textarea>
-
+<h2>📖 1. Story / Script</h2>
+<textarea id="story" placeholder="अपनी कहानी लिखें। उदाहरण:
+सूरज सुबह एक पुराने जंगल में जाता है।
+उसे एक रहस्यमय दरवाजा दिखाई देता है।
+सूरज दरवाजा खोलता है और एक चमकता हुआ शहर देखता है।"></textarea>
 <div class="grid">
-
-<div>
-<label>🎨 Visual Style</label>
-<select id="style">
-<option>Cinematic Animation</option>
-<option>3D Animation</option>
-<option>Realistic</option>
-<option>Anime</option>
-<option>Cartoon</option>
-</select>
+<div><label>🎨 Visual Style</label><select id="style">
+<option value="cinematic">Cinematic</option><option value="anime">Anime</option><option value="cartoon">3D Cartoon</option><option value="fantasy">Fantasy</option><option value="scifi">Sci-Fi</option>
+</select></div>
+<div><label>🎙️ Voice Language</label><select id="lang"><option value="hi-IN">Hindi</option><option value="en-US">English</option></select></div>
 </div>
-
-<div>
-<label>⏱️ Video Duration</label>
-<select id="duration">
-<option>Up to 5 minutes</option>
-</select>
+<div class="grid3">
+<div><label>Scene Duration</label><select id="sceneSec"><option>4</option><option selected>6</option><option>8</option><option>10</option><option>12</option></select></div>
+<div><label>Max Scenes</label><select id="maxScenes"><option>5</option><option selected>10</option><option>15</option><option>20</option></select></div>
+<div><label>Camera</label><select id="camera"><option value="cinematic">Cinematic</option><option value="zoom">Slow Zoom</option><option value="pan">Pan</option><option value="shake">Action</option></select></div>
 </div>
-
+<div class="actions">
+<button class="primary" onclick="generate()">✨ Generate Project</button>
+<button class="secondary" onclick="saveProject()">💾 Save Project</button>
+<button class="secondary" onclick="loadProject()">📂 Load Project</button>
+<button class="danger" onclick="resetAll()">🗑️ Reset</button>
 </div>
-
-<div class="grid">
-
-<div>
-<label>📐 Format</label>
-<select id="ratio">
-<option>16:9 Landscape</option>
-<option>9:16 Portrait</option>
-<option>1:1 Square</option>
-</select>
-</div>
-
-<div>
-<label>🎥 Video Quality</label>
-<select id="quality">
-<option>HD</option>
-<option>Full HD</option>
-</select>
-</div>
-
-</div>
-
 </section>
 
-
 <section class="card">
-
 <h2>👥 2. Characters</h2>
-
-<div class="grid">
-
-<div>
-<label>Character 1</label>
-<input id="c1" placeholder="नाम">
-</div>
-
-<div>
-<label>Appearance</label>
-<input id="a1" placeholder="चेहरा, बाल, कपड़े आदि">
-</div>
-
-<div>
-<label>Character 2</label>
-<input id="c2" placeholder="नाम">
-</div>
-
-<div>
-<label>Appearance</label>
-<input id="a2" placeholder="चेहरा, बाल, कपड़े आदि">
-</div>
-
-<div>
-<label>Character 3</label>
-<input id="c3" placeholder="नाम">
-</div>
-
-<div>
-<label>Appearance</label>
-<input id="a3" placeholder="चेहरा, बाल, कपड़े आदि">
-</div>
-
-<div>
-<label>Character 4</label>
-<input id="c4" placeholder="नाम">
-</div>
-
-<div>
-<label>Appearance</label>
-<input id="a4" placeholder="चेहरा, बाल, कपड़े आदि">
-</div>
-
-</div>
-
-<p class="muted">
-Character consistency: हर scene में character का चेहरा,
-कपड़े, बाल, आवाज और सामान्य appearance एक जैसा रखने का plan।
-</p>
-
+<p class="small">हर character का नाम, appearance और voice सेट करें।</p>
+<div id="chars" class="chars"></div>
+<button class="secondary" onclick="addCharacter()">＋ Add Character</button>
 </section>
 
-
-<section class="card">
-
-<h2>🗣️ 3. Voice & Dialogue</h2>
-
-<div class="grid">
-
-<div>
-<label>Narrator</label>
-<select id="narrator">
-<option>Hindi Male</option>
-<option>Hindi Female</option>
-<option>English Male</option>
-<option>English Female</option>
-</select>
-</div>
-
-<div>
-<label>Character Voice Style</label>
-<select id="voice">
-<option>Natural</option>
-<option>Cinematic</option>
-<option>Deep</option>
-<option>Soft</option>
-</select>
-</div>
-
-<div>
-<label>🎵 Background Music</label>
-<select id="music">
-<option>Cinematic</option>
-<option>Adventure</option>
-<option>Mystery</option>
-<option>Emotional</option>
-<option>None</option>
-</select>
-</div>
-
-<div>
-<label>🔊 Sound Effects</label>
-<select id="sfx">
-<option>Automatic</option>
-<option>On</option>
-<option>Off</option>
-</select>
-</div>
-
-</div>
-
-<div class="notice">
-AI workflow में dialogue को सही character से जोड़ने,
-voice अलग रखने और lip-sync के लिए scene plan बनाया जाएगा।
-</div>
-
+<section id="project" class="card hidden">
+<h2>🎬 3. Generated Scenes</h2>
+<div id="sceneList"></div>
 </section>
 
-
-<section class="card">
-
-<h2>🎬 4. Animation Controls</h2>
-
-<div class="grid">
-
-<div>
-<label>🚶 Character Movement</label>
-<select id="movement">
-<option>Story Based</option>
-<option>Natural</option>
-<option>Cinematic</option>
-</select>
+<section id="video" class="card hidden">
+<h2>🎥 4. Video Preview & Export</h2>
+<div class="preview">
+<canvas id="cv" width="1280" height="720"></canvas>
+<div class="status" id="status">Ready.</div>
 </div>
-
-<div>
-<label>😊 Facial Expression</label>
-<select id="expression">
-<option>Story Based</option>
-<option>Natural</option>
-<option>Strong</option>
-</select>
+<div class="progress"><i id="bar"></i></div>
+<div class="actions">
+<button class="primary" onclick="play()">▶️ Play</button>
+<button class="secondary" onclick="stop()">⏹ Stop</button>
+<button class="secondary" onclick="voice()">🔊 Dialogue Voice</button>
+<button class="primary" onclick="exportVideo()">⬇️ Export WebM</button>
 </div>
-
-<div>
-<label>👄 Lip Sync</label>
-<select id="lipsync">
-<option>Automatic</option>
-<option>Accurate Dialogue Sync</option>
-</select>
-</div>
-
-<div>
-<label>👁️ Eye / Blink</label>
-<select id="blink">
-<option>Natural</option>
-<option>Automatic</option>
-</select>
-</div>
-
-</div>
-
+<p class="small">यह browser-based animation है। WebM export device/browser के MediaRecorder support पर निर्भर करता है।</p>
 </section>
-
-
-<section class="card">
-
-<h2>🌄 5. Moving Background</h2>
-
-<select id="background">
-<option>Story Based Automatic</option>
-<option>Nature / Forest</option>
-<option>City</option>
-<option>Village</option>
-<option>Room / House</option>
-<option>Adventure Environment</option>
-</select>
-
-<p class="muted">
-Background plan में story के अनुसार environment movement,
-weather, trees, water, vehicles, people और lighting जैसी चीजें
-जहाँ उचित हों वहाँ शामिल की जाएँगी।
-</p>
-
-</section>
-
-
-<section class="card">
-
-<h2>🎥 6. Camera</h2>
-
-<div class="grid">
-
-<div>
-<label>Camera Style</label>
-<select id="camera">
-<option>Cinematic Automatic</option>
-<option>Story Based</option>
-<option>Dynamic</option>
-</select>
-</div>
-
-<div>
-<label>Transitions</label>
-<select id="transition">
-<option>Automatic</option>
-<option>Fade</option>
-<option>Cut</option>
-<option>Cinematic</option>
-</select>
-</div>
-
-</div>
-
-</section>
-
-
-<section class="card">
-
-<h2>🚀 7. Generate Project</h2>
-
-<button class="primary" onclick="generate()">
-🚀 Generate Story Project
-</button>
-
-<div class="status" id="status">
-
-<div class="progress">
-<div class="bar" id="bar"></div>
-</div>
-
-<p id="statusText" class="muted">Preparing...</p>
-
-</div>
-
-</section>
-
-
-<section class="card" id="sceneCard" style="display:none">
-
-<h2>🎞️ 8. Generated Scene Plan</h2>
-
-<div id="scenes"></div>
-
-</section>
-
-
-<section class="card preview" id="preview">
-
-<h2>🎥 9. Video Preview</h2>
-
-<div class="video">
-<div>
-<div style="font-size:42px">▶️</div>
-Preview Area
-</div>
-</div>
-
-<p class="muted">
-यह preview अभी project workflow का हिस्सा है।
-वास्तविक AI video rendering engine जोड़ने पर यहाँ
-generated video चलेगा।
-</p>
-
-<button class="secondary" onclick="downloadInfo()">
-📥 Download Video
-</button>
-
-</section>
-
-
-<section class="card">
-
-<h2>📁 10. My Projects</h2>
-
-<div id="projects">
-<p class="muted">अभी कोई project नहीं है।</p>
-</div>
-
-</section>
-
-
-<section class="card">
-
-<h2>⚙️ 11. Project Information</h2>
-
-<div class="notice">
-<b>Suraj AI Studio</b><br><br>
-Story → Scenes → Characters → Animation Plan →
-Dialogue → Voice → Lip-sync → Background → Camera →
-Video Rendering
-<br><br>
-यह interface वास्तविक AI generation backend को जोड़ने के
-लिए तैयार किया गया prototype है।
-</div>
-
-</section>
-
 </main>
 
-<footer>
-Suraj AI Studio © 2026<br>
-Original Project
-</footer>
-
+<footer>☀️ Suraj AI Studio — Original Branding</footer>
 
 <script>
+const $=id=>document.getElementById(id);
+let chars=[{name:"Suraj",appearance:"युवा लड़का, casual कपड़े",voice:"male"}];
+let scenes=[],running=false,raf=0,start=0,current=0,rec=null,chunks=[];
+const cv=$("cv"),ctx=cv.getContext("2d");
 
-let projects=
-JSON.parse(localStorage.getItem("suraj_ai_projects")||"[]");
-
-function save(){
-localStorage.setItem(
-"suraj_ai_projects",
-JSON.stringify(projects)
-);
+function addCharacter(){
+ chars.push({name:"Character "+(chars.length+1),appearance:"अपनी appearance लिखें",voice:"female"});
+ renderChars();
 }
-
-function value(id){
-return document.getElementById(id).value.trim();
+function renderChars(){
+ $("chars").innerHTML=chars.map((c,i)=>`
+ <div class="char">
+  <div class="charhead"><b>Character ${i+1}</b><span class="pill">${i+1}</span></div>
+  <label>Name</label><input value="${esc(c.name)}" oninput="chars[${i}].name=this.value">
+  <label>Appearance</label><input value="${esc(c.appearance)}" oninput="chars[${i}].appearance=this.value">
+  <label>Voice</label><select onchange="chars[${i}].voice=this.value"><option value="male" ${c.voice==="male"?"selected":""}>Male</option><option value="female" ${c.voice==="female"?"selected":""}>Female</option></select>
+  ${chars.length>1?`<button class="danger" onclick="removeChar(${i})">Remove</button>`:""}
+ </div>`).join("");
 }
+function removeChar(i){chars.splice(i,1);renderChars()}
+function esc(s){return String(s||"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;")}
 
+function splitStory(){
+ let t=$("story").value.trim();
+ if(!t){alert("पहले कहानी लिखें।");return []}
+ let a=t.split(/\\n+|(?<=[.!?।])\\s+/).map(x=>x.trim()).filter(Boolean);
+ return a.slice(0,Number($("maxScenes").value));
+}
 function generate(){
-
-let story=value("story");
-
-if(!story){
-alert("पहले अपनी कहानी लिखिए।");
-return;
+ scenes=splitStory(); if(!scenes.length)return;
+ scenes=scenes.map((text,i)=>({
+  text,
+  character:chars[i%chars.length]?.name||"Character",
+  dialogue:text,
+  camera:$("camera").value
+ }));
+ renderScenes();
+ $("project").classList.remove("hidden");$("video").classList.remove("hidden");
+ current=0;draw(0,0);$("status").textContent="Project तैयार है।";
+ $("project").scrollIntoView({behavior:"smooth"});
+}
+function renderScenes(){
+ $("sceneList").innerHTML=scenes.map((s,i)=>`
+ <div class="scene"><b>Scene ${i+1}</b><br>${esc(s.text)}
+ <div class="small">Character: ${esc(s.character)} · Camera: ${esc(s.camera)} · Movement + background animation</div>
+ <label>Dialogue</label><input value="${esc(s.dialogue)}" oninput="scenes[${i}].dialogue=this.value">
+ </div>`).join("");
 }
 
-let status=document.getElementById("status");
-let bar=document.getElementById("bar");
-let text=document.getElementById("statusText");
-
-status.style.display="block";
-
-let steps=[
-[10,"Story को analyze किया जा रहा है..."],
-[22,"Characters identify किए जा रहे हैं..."],
-[35,"Story को scenes में divide किया जा रहा है..."],
-[48,"Character actions और expressions तैयार हो रहे हैं..."],
-[61,"Dialogue और speaker mapping तैयार हो रही है..."],
-[72,"Voice और lip-sync plan तैयार हो रहा है..."],
-[83,"Moving background और camera plan तैयार हो रहा है..."],
-[94,"Final video project तैयार हो रहा है..."],
-[100,"Project तैयार है!"]
-];
-
-let i=0;
-
-function run(){
-
-if(i>=steps.length){
-
-makeScenes(story);
-saveProject(story);
-
-document.getElementById("preview")
-.style.display="block";
-
-return;
+function palette(){
+ return {cinematic:["#10243b","#315b7d","#ffd166"],anime:["#25124b","#6335a5","#ffcf65"],cartoon:["#14506d","#2ca6bd","#ffe070"],fantasy:["#24133e","#704ea8","#f0caff"],scifi:["#020718","#12315d","#66c7ff"]}[$("style").value];
 }
-
-bar.style.width=steps[i][0]+"%";
-text.textContent=steps[i][1];
-
-i++;
-setTimeout(run,550);
+function round(x,y,w,h,r){
+ ctx.beginPath();ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.closePath();
 }
-
-run();
+function wrap(text,x,y,max,line){
+ let words=text.split(/\s+/),lines=[],l="";
+ for(const w of words){let t=l?l+" "+w:w;if(ctx.measureText(t).width>max&&l){lines.push(l);l=w}else l=t}
+ if(l)lines.push(l);lines.slice(0,3).forEach((z,i)=>ctx.fillText(z,x,y+i*line));
 }
-
-
-function makeScenes(story){
-
-let card=document.getElementById("sceneCard");
-let box=document.getElementById("scenes");
-
-card.style.display="block";
-box.innerHTML="";
-
-let parts=story
-.split(/[.!?।]+/)
-.map(x=>x.trim())
-.filter(Boolean);
-
-if(!parts.length)parts=[story];
-
-parts.slice(0,20).forEach((part,i)=>{
-
-let scene=document.createElement("div");
-scene.className="scene";
-
-scene.innerHTML=
-"<b>Scene "+(i+1)+"</b><br><br>"+
-part+
-"<br><br>"+
-"<span class='tag'>Character Movement</span>"+
-"<span class='tag'>Facial Expression</span>"+
-"<span class='tag'>Lip Sync</span>"+
-"<span class='tag'>Voice</span>"+
-"<span class='tag'>Moving Background</span>"+
-"<span class='tag'>Camera Movement</span>";
-
-box.appendChild(scene);
-
-});
-
+function draw(si,p){
+ if(!scenes.length)return;
+ const [a,b,accent]=palette(),w=cv.width,h=cv.height;
+ let g=ctx.createLinearGradient(0,0,0,h);g.addColorStop(0,a);g.addColorStop(1,b);ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
+ for(let i=0;i<55;i++){let x=(i*173+p*260)%w,y=40+(i*71)%470;ctx.fillStyle="rgba(255,255,255,.35)";ctx.beginPath();ctx.arc(x,y,1+i%3,0,7);ctx.fill()}
+ ctx.fillStyle=accent;ctx.globalAlpha=.8;ctx.beginPath();ctx.arc(w-150+Math.sin(p*6)*18,120,55,0,7);ctx.fill();ctx.globalAlpha=1;
+ ctx.fillStyle="rgba(0,0,0,.25)";ctx.fillRect(0,h-175,w,175);
+ let x=170+(w-340)*p, y=h-245+Math.sin(p*6.28)*8;
+ ctx.fillStyle="#3b82f6";ctx.fillRect(x-35,y+70,70,105);
+ ctx.fillStyle="#f1c6a4";ctx.beginPath();ctx.arc(x,y+35,43,0,7);ctx.fill();
+ ctx.fillStyle="#20150f";ctx.beginPath();ctx.arc(x,y+13,43,Math.PI,Math.PI*2);ctx.fill();
+ ctx.fillStyle="#111";ctx.beginPath();ctx.arc(x-15,y+35,4,0,7);ctx.fill();ctx.beginPath();ctx.arc(x+15,y+35,4,0,7);ctx.fill();
+ let arm=Math.sin(p*12)*15;ctx.strokeStyle="#f1c6a4";ctx.lineWidth=15;ctx.lineCap="round";
+ ctx.beginPath();ctx.moveTo(x-30,y+90);ctx.lineTo(x-75,y+120+arm);ctx.stroke();
+ ctx.beginPath();ctx.moveTo(x+30,y+90);ctx.lineTo(x+75,y+120-arm);ctx.stroke();
+ ctx.fillStyle="rgba(0,0,0,.65)";round(50,48,w-100,120,18);ctx.fill();
+ ctx.fillStyle="#fff";ctx.textAlign="center";ctx.font="bold 29px Arial";wrap(scenes[si].text,w/2,88,w-170,37);
+ ctx.fillStyle=accent;ctx.font="bold 21px Arial";ctx.fillText("SCENE "+(si+1),105,h-50);
+ ctx.textAlign="left";
 }
-
-
-function saveProject(story){
-
-let names=[
-value("c1"),value("c2"),
-value("c3"),value("c4")
-].filter(Boolean);
-
-let project={
-id:Date.now(),
-name:"Suraj AI Story "+(projects.length+1),
-story:story,
-characters:names,
-date:new Date().toLocaleString()
-};
-
-projects.unshift(project);
-
-if(projects.length>20)
-projects=projects.slice(0,20);
-
-save();
-render();
+function play(){
+ if(!scenes.length){alert("पहले Generate Project करें।");return}
+ stop();running=true;start=performance.now();$("status").textContent="🎬 Animation चल रही है...";loop();
 }
-
-
-function render(){
-
-let box=document.getElementById("projects");
-
-if(!projects.length){
-box.innerHTML=
-"<p class='muted'>अभी कोई project नहीं है।</p>";
-return;
+function loop(){
+ if(!running)return;
+ let dur=Number($("sceneSec").value)*1000,total=scenes.length*dur,e=performance.now()-start;
+ if(e>=total){running=false;current=scenes.length-1;draw(current,1);$("bar").style.width="100%";$("status").textContent="✅ Animation complete.";return}
+ current=Math.floor(e/dur);let p=(e%dur)/dur;draw(current,p);$("bar").style.width=(e/total*100)+"%";raf=requestAnimationFrame(loop);
 }
-
-box.innerHTML="";
-
-projects.forEach(p=>{
-
-let div=document.createElement("div");
-div.className="project";
-
-let chars=p.characters.length
-?p.characters.join(", ")
-:"No characters added";
-
-div.innerHTML=
-"<div>"+
-"<b>"+p.name+"</b>"+
-"<div class='muted'>"+
-p.date+"<br>"+
-"Characters: "+chars+
-"</div>"+
-"</div>"+
-"<button class='delete' onclick='removeProject("+p.id+")'>Delete</button>";
-
-box.appendChild(div);
-
-});
+function stop(){running=false;if(raf)cancelAnimationFrame(raf);if(scenes.length)draw(current,0);$("status").textContent="⏹ Stopped."}
+function voice(){
+ if(!scenes.length){alert("पहले Generate Project करें।");return}
+ if(!("speechSynthesis"in window)){alert("इस browser में voice support नहीं है।");return}
+ speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(scenes[current].dialogue);u.lang=$("lang").value;u.rate=.9;u.pitch=1;speechSynthesis.speak(u);
 }
-
-
-function removeProject(id){
-
-projects=projects.filter(x=>x.id!==id);
-save();
-render();
-
+function exportVideo(){
+ if(!scenes.length){alert("पहले Generate Project करें।");return}
+ if(!window.MediaRecorder||!cv.captureStream){alert("इस browser में video export support नहीं है।");return}
+ stop();chunks=[];let stream=cv.captureStream(30),mime=MediaRecorder.isTypeSupported("video/webm;codecs=vp9")?"video/webm;codecs=vp9":"video/webm";
+ rec=new MediaRecorder(stream,{mimeType:mime});
+ rec.ondataavailable=e=>{if(e.data.size)chunks.push(e.data)};
+ rec.onstop=()=>{let blob=new Blob(chunks,{type:"video/webm"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="suraj-ai-studio-video.webm";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);$("status").textContent="✅ WebM video तैयार है।"};
+ rec.start();running=true;start=performance.now();loop();
+ let total=scenes.length*Number($("sceneSec").value)*1000;setTimeout(()=>{running=false;if(rec&&rec.state!=="inactive")rec.stop()},total+400);
 }
-
-
-function downloadInfo(){
-
-alert(
-"वास्तविक video download के लिए AI video rendering backend अभी connect करना बाकी है।"
-);
-
+function saveProject(){
+ const data={story:$("story").value,style:$("style").value,lang:$("lang").value,sceneSec:$("sceneSec").value,maxScenes:$("maxScenes").value,camera:$("camera").value,chars,scenes};
+ localStorage.setItem("surajAIStudioProject",JSON.stringify(data));alert("Project device में save हो गया।");
 }
-
-render();
-
+function loadProject(){
+ let raw=localStorage.getItem("surajAIStudioProject");if(!raw){alert("कोई saved project नहीं मिला।");return}
+ let d=JSON.parse(raw);$("story").value=d.story||"";$("style").value=d.style||"cinematic";$("lang").value=d.lang||"hi-IN";$("sceneSec").value=d.sceneSec||"6";$("maxScenes").value=d.maxScenes||"10";$("camera").value=d.camera||"cinematic";chars=d.chars||chars;scenes=d.scenes||[];renderChars();if(scenes.length){renderScenes();$("project").classList.remove("hidden");$("video").classList.remove("hidden");draw(0,0)}alert("Project load हो गया।");
+}
+function resetAll(){
+ if(!confirm("पूरा project reset करें?"))return;
+ localStorage.removeItem("surajAIStudioProject");$("story").value="";scenes=[];chars=[{name:"Suraj",appearance:"युवा लड़का, casual कपड़े",voice:"male"}];renderChars();$("project").classList.add("hidden");$("video").classList.add("hidden");stop();
+}
+renderChars();draw(0,0);
 </script>
-
 </body>
-  </html>
+                                                                                                                             </html>
+                                                 
